@@ -1,0 +1,63 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the README at:
+// https://github.com/microsoft/vscode-dev-containers/tree/v0.205.2/containers/ruby-rails-postgres
+// Update the VARIANT arg in docker-compose.yml to pick a Ruby version
+{
+	"name": "Ruby on Rails & Postgres",
+	"dockerComposeFile": "docker-compose.yml",
+	"service": "app",
+	"workspaceFolder": "/workspace",
+
+	// Set *default* container specific settings.json values on container create.
+	"settings": {
+		"sqltools.connections": [
+			{
+				"name": "Rails Development Database",
+				"driver": "PostgreSQL",
+				"previewLimit": 50,
+				"server": "localhost",
+				"port": 5432,
+
+				// update this to match config/database.yml
+				"database": "sealion_development",
+				"username": "postgres"
+			},
+			{
+				"name": "Rails Test Database",
+				"driver": "PostgreSQL",
+				"previewLimit": 50,
+				"server": "localhost",
+				"port": 5432,
+
+				// update this to match config/database.yml
+				"database": "sealion_test",
+				"username": "postgres"
+			}
+		]
+	},
+
+	// Add the IDs of extensions you want installed when the container is created.
+	"extensions": [
+		"rebornix.Ruby",
+		"mtxr.sqltools",
+		"mtxr.sqltools-driver-pg",
+		"vayan.haml",
+		"misogi.ruby-rubocop",
+		"connorshea.vscode-ruby-test-adapter",
+		"oderwat.indent-rainbow",
+		"soutaro.steep-vscode",
+		"soutaro.rbs-syntax",
+		"ms-azuretools.vscode-docker",
+		"kaiwood.endwise",
+		"noku.rails-run-spec-vscode"
+	],
+
+	// Use 'forwardPorts' to make a list of ports inside the container available locally.
+	// "forwardPorts": [3000, 5432],
+
+	// Use 'postCreateCommand' to run commands after the container is created.
+	"postCreateCommand": "bundle install && rake db:setup",
+
+	"features": {
+		"git": "latest"
+	}
+}
