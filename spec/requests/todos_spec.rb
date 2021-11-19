@@ -11,14 +11,14 @@ RSpec.describe 'Todos', type: :request do
     end
 
     context 'When some todos have been already registered' do
-      let(:todos) { create_list :todo, 2 }
+      let!(:todos) { create_list :todo, 2 }
 
       it 'returns http success' do
         get '/todos'
 
         expect(response).to have_http_status(:success)
         expect(response).to render_template(:index)
-        expect(assigns(:todos)).to eql(todos)
+        expect(assigns(:todos)).to match_array(todos)
       end
     end
   end
