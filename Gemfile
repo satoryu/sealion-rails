@@ -47,6 +47,8 @@ gem "dotenv-rails", "~> 2.7"
 group :development, :test do
   # Start debugger with binding.b [https://github.com/ruby/debug]
   gem "debug", ">= 1.0.0", platforms: %i[ mri mingw x64_mingw ]
+  gem "factory_bot_rails"
+  gem "rspec-rails", "~> 5.0"
 end
 
 group :development do
@@ -67,4 +69,3 @@ group :test do
   gem "webdrivers"
 end
 
-gem "rspec-rails", "~> 5.0"
