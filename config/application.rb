@@ -14,7 +14,7 @@ module Sealion
     config.generators do |generator|
       generator.controller = { skip_routes: true }
       generator.helper = false
-      generator.test_framework :rspec, helper_specs: false, routing_specs: false
+      generator.test_framework :rspec, helper_specs: false, routing_specs: false, view_specs: false
     end
 
     # Configuration for the application, engines, and railties goes here.
