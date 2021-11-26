@@ -36,6 +36,15 @@ RSpec.describe 'Todos', type: :request do
       }.to change(Todo, :count).by(1)
     end
 
+    context 'When content is not given' do
+      it 'renders index' do
+        post todos_path, params: { todo: { content: '' } }
+
+        expect(response).to have_http_status(:bad_request)
+        expect(response).to render_template(:index)
+      end
+    end
+
     context 'When request for turbo-frame' do
       it 'renders index template' do
         post todos_path, params: { todo: { content: 'Buy a New Gudget' } }, headers: { 'Turbo-Frame' => 'todo-list' }

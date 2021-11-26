@@ -6,12 +6,14 @@ class TodosController < ApplicationController
   end
 
   def create
-    Todo.create(todo_params)
+    @todo = Todo.create(todo_params)
 
     if turbo_frame_request?
       return render :index
     else
-      redirect_to todos_path
+      return redirect_to todos_path if @todo.valid?
+
+      render :index, status: :bad_request
     end
   end
 
