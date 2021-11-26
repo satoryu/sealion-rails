@@ -51,6 +51,17 @@ RSpec.describe 'Todos', type: :request do
 
         expect(response).to have_http_status(:success)
         expect(response).to render_template(:index)
+        expect(assigns(:todo)).to be_new_record
+      end
+
+      context 'When content is not given' do
+        it 'renders index template with invalid todo' do
+          post todos_path, params: { todo: { content: '' } }, headers: { 'Turbo-Frame' => 'todo-list' }
+
+          expect(response).to have_http_status(:bad_request)
+          expect(response).to render_template(:index)
+          expect(assigns(:todo)).to be_invalid
+        end
       end
     end
   end
