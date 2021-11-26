@@ -1,5 +1,13 @@
 %h1 Todos
 
+= form_for @todo do |f|
+  = f.label :content
+  = f.text_field :content
+
+  = f.submit
+
 %ul
   - @todos.each do |todo|
     %li= todo.content
+
+  %li Buy a New Gudget
