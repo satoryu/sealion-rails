@@ -1,13 +1,15 @@
 %h1 Todos
 
-= form_for @todo do |f|
-  = f.label :content
-  = f.text_field :content
+= turbo_frame_tag 'todo-form', target: '_top' do
+  = form_for @todo do |f|
+    = f.label :content
+    = f.text_field :content
 
-  = f.submit
+    = f.submit
 
-%ul
-  - @todos.each do |todo|
-    %li= todo.content
+= turbo_frame_tag 'todo-list' do
+  %ul
+    - @todos.each do |todo|
+      %li= todo.content
 
-  %li Buy a New Gudget
+    %li Buy a New Gudget
