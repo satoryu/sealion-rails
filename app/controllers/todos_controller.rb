@@ -8,9 +8,11 @@ class TodosController < ApplicationController
   def create
     Todo.create(todo_params)
 
-    return render :index if turbo_frame_request?
-
-    redirect_to todos_path
+    if turbo_frame_request?
+      return render :index
+    else
+      redirect_to todos_path
+    end
   end
 
   private
