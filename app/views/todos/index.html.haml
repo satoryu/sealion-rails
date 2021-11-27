@@ -12,4 +12,4 @@
     - @todos.each do |todo|
       %li
         = todo.content
-        = link_to 'Complete', complete_todo_path(todo), method: :post
+        = link_to 'Complete', complete_todo_path(todo), data: { turbo_method: :post }
