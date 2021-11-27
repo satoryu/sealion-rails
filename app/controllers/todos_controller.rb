@@ -24,10 +24,7 @@ class TodosController < ApplicationController
   def complete
     @todo.destroy
 
-    @todo = Todo.new
-    @todos = Todo.all.order(updated_at: :desc)
-
-    render :index
+    redirect_to todos_path, notice: 'Completed'
   end
 
   private
