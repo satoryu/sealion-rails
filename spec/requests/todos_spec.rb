@@ -65,4 +65,29 @@ RSpec.describe 'Todos', type: :request do
       end
     end
   end
+
+  describe 'POST /todos/:id/complete' do
+    let!(:todo) { create :todo, content: 'Buy a Milk' }
+
+    context 'When request for turbo-frame' do
+      it 'renders index with success' do
+        post complete_todo_path(todo), headers: { 'Turbo-Frame' => 'todo-list' }
+
+        expect(response).to have_http_status(:success)
+        expect(response).to render_template(:index)
+        expect(assigns(:todos)).to_not include(todo)
+      end
+
+      context 'When given id does not exist' do
+        it 'renders index with not found' do
+          post complete_todo_path('INVALID_ID'), headers: { 'Turbo-Frame' => 'todo-list' }
+
+          expect(response).to have_http_status(:not_found)
+          expect(response).to render_template(:index)
+          expect(assigns(:todos)).to match_array(Todo.all)
+          expect(assigns(:todo)).to be_new_record
+        end
+      end
+    end
+  end
 end
