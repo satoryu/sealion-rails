@@ -16,26 +16,16 @@ class TodosController < ApplicationController
   def create
     @todo = Todo.create(todo_params)
 
-    if turbo_frame_request?
-      if @todo.valid?
-        @todo = Todo.new
+    return redirect_to todos_path if @todo.valid?
 
-        return render :index
-      else
-        return render :index, status: :bad_request
-      end
-    else
-      return redirect_to todos_path if @todo.valid?
-
-      render :index, status: :bad_request
-    end
+    render :index, status: :bad_request
   end
 
   def complete
     @todo.destroy
 
     @todo = Todo.new
-    @todos = Todo.all
+    @todos = Todo.all.order(updated_at: :desc)
 
     render :index
   end
