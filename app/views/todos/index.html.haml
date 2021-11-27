@@ -10,4 +10,6 @@
 = turbo_frame_tag 'todo-list' do
   %ul
     - @todos.each do |todo|
-      %li= todo.content
+      %li
+        = todo.content
+        = link_to 'Complete', complete_todo_path(todo), method: :post
