@@ -28,7 +28,7 @@ class TodosController < ApplicationController
       format.html { redirect_to todos_path, notice: 'Completed' }
       format.turbo_stream do
         flash.now[:notice] = "'#{@todo.content}' is Completed"
-        render :complete
+        render :complete, layout: 'application'
       end
     end
   end
