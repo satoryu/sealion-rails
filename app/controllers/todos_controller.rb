@@ -24,7 +24,13 @@ class TodosController < ApplicationController
   def complete
     @todo.destroy
 
-    redirect_to todos_path, notice: 'Completed'
+    respond_to do |format|
+      format.html { redirect_to todos_path, notice: 'Completed' }
+      format.turbo_stream do
+        flash.now[:notice] = "'#{@todo.content}' is Completed"
+        render :complete
+      end
+    end
   end
 
   private

@@ -1,0 +1,6 @@
+= turbo_stream.replace 'flash' do
+  = turbo_frame_tag 'flash' do
+    - flash.each do |type, message|
+      .notification{ class: [type] }= message.html_safe
+
+= turbo_stream.remove "todo-#{@todo.id}"

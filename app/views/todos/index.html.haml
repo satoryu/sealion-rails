@@ -10,6 +10,7 @@
 = turbo_frame_tag 'todo-list' do
   %ul
     - @todos.each do |todo|
-      %li
-        = todo.content
-        = link_to 'Complete', complete_todo_path(todo), data: { turbo_method: :post }
+      = turbo_frame_tag "todo-#{todo.id}" do
+        %li
+          = todo.content
+          = link_to 'Complete', complete_todo_path(todo), data: { turbo_method: :post }
