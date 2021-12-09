@@ -36,6 +36,7 @@ Capybara.register_driver :selenium_chrome do |app|
   options = Selenium::WebDriver::Chrome::Options.new
 
   options.add_argument 'headless'
+  # NOTE: --no-sandbox is required since the uerer is root on devcontainer.
   options.add_argument 'no-sandbox'
 
   Capybara::Selenium::Driver.new(app, browser: :chrome, options: options)
