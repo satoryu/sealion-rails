@@ -15,6 +15,11 @@ RUN apt-get update \
     && apt-get -y install --no-install-recommends docker-ce docker-ce-cli containerd.io \
     && apt-get clean
 
+# Install Chrome Headless
+RUN apt-get update \
+    && curl -fSLO https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb \
+    && dpkg -i google-chrome-stable_current_amd64.deb || apt-get update && apt-get install -f -y
+
 ENV GEM_HOME /bundle
 ENV BUNDLE_PATH ${GEM_HOME}
 ENV BUNDLE_APP_CONFIG ${BUNDLE_PATH}

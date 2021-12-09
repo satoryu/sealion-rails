@@ -1,6 +1,11 @@
 class TodosController < ApplicationController
   before_action :load_todo_list, only: %i[index create]
   before_action :load_new_todo, only: %i[index create]
+  before_action :find_todo, only: %i[complete]
+
+  rescue_from ActiveRecord::RecordNotFound do
+    redirect_to todos_path
+  end
 
   def index
   end
@@ -8,18 +13,20 @@ class TodosController < ApplicationController
   def create
     @todo = Todo.create(todo_params)
 
-    if turbo_frame_request?
-      if @todo.valid?
-        @todo = Todo.new
+    return redirect_to todos_path if @todo.valid?
 
-        return render :index
-      else
-        return render :index, status: :bad_request
+    render :index, status: :bad_request
+  end
+
+  def complete
+    @todo.destroy
+
+    respond_to do |format|
+      format.html { redirect_to todos_path, notice: 'Completed' }
+      format.turbo_stream do
+        flash.now[:notice] = "'#{@todo.content}' is Completed"
+        render :complete, layout: 'application'
       end
-    else
-      return redirect_to todos_path if @todo.valid?
-
-      render :index, status: :bad_request
     end
   end
 
@@ -30,10 +37,14 @@ class TodosController < ApplicationController
   end
 
   def load_todo_list
-    @todos = Todo.all
+    @todos = Todo.all.order(updated_at: :desc)
   end
 
   def load_new_todo
     @todo = Todo.new
+  end
+
+  def find_todo
+    @todo = Todo.find(params[:id])
   end
 end
