@@ -1,4 +1,4 @@
-FROM ruby:3.0.2-bullseye
+FROM ruby:3.0.3-bullseye
 
 RUN apt-get update \
     && apt-get -y install --no-install-recommends build-essential curl git libpq-dev postgresql \
