@@ -4,9 +4,6 @@ class TodosController < ApplicationController
   before_action :find_todo, only: %i[complete]
 
   rescue_from ActiveRecord::RecordNotFound do
-    @todo = Todo.new
-    @todos = Todo.all.order(updated_at: :desc)
-
     redirect_to todos_path
   end
 

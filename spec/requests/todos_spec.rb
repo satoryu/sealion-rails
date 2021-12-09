@@ -60,8 +60,6 @@ RSpec.describe 'Todos', type: :request do
         post complete_todo_path('INVALID_ID')
 
         expect(response).to redirect_to todos_path
-        expect(assigns(:todos)).to match_array(Todo.all)
-        expect(assigns(:todo)).to be_new_record
       end
     end
   end
