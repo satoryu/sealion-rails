@@ -30,6 +30,9 @@ class TodosController < ApplicationController
     end
   end
 
+  def completed
+  end
+
   private
 
   def todo_params

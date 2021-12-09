@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
   resources :todos, only: %i[index create] do
+    collection do
+      get :completed
+    end
     member do
       post :complete
     end
