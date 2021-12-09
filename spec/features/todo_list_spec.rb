@@ -4,7 +4,7 @@ RSpec.feature "TodoLists", type: :feature do
   before do
     create :todo, content: 'Buy a milk'
     create :todo, content: 'Call back the office'
-    create :todo, content: 'Go to the Office' # Completed one
+    create :todo, content: 'Go to the Office', completed_at: Time.zone.now
   end
 
   scenario 'Show all registered todos' do
