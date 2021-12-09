@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.feature "CompleteTodos", type: :feature do
+RSpec.feature "CompleteTodos", type: :feature, js: true do
   before do
     create :todo, content: 'Buy a Milk'
     create :todo, content: 'Call Back The Office'
@@ -9,12 +9,14 @@ RSpec.feature "CompleteTodos", type: :feature do
   scenario 'Complete Todo' do
     visit '/todos'
 
-    within 'ul li:first-child' do
+    within first('ul li') do
       expect(page).to have_text('Call Back The Office')
-      click_link 'Complete'
+      find_link('Complete').click
     end
 
-    expect(page).to_not have_text('Call Back The Office')
-    expect(page).to have_text('Buy a Milk')
+    within 'ul' do
+      expect(page).to have_no_text('Call Back The Office')
+      expect(page).to have_text('Buy a Milk')
+    end
   end
 end
