@@ -44,26 +44,6 @@ RSpec.describe 'Todos', type: :request do
         expect(response).to render_template(:index)
       end
     end
-
-    context 'When request for turbo-frame' do
-      it 'renders index template' do
-        post todos_path, params: { todo: { content: 'Buy a New Gudget' } }, headers: { 'Turbo-Frame' => 'todo-list' }
-
-        expect(response).to have_http_status(:success)
-        expect(response).to render_template(:index)
-        expect(assigns(:todo)).to be_new_record
-      end
-
-      context 'When content is not given' do
-        it 'renders index template with invalid todo' do
-          post todos_path, params: { todo: { content: '' } }, headers: { 'Turbo-Frame' => 'todo-list' }
-
-          expect(response).to have_http_status(:bad_request)
-          expect(response).to render_template(:index)
-          expect(assigns(:todo)).to be_invalid
-        end
-      end
-    end
   end
 
   describe 'POST /todos/:id/complete' do
@@ -79,8 +59,7 @@ RSpec.describe 'Todos', type: :request do
       it 'renders index with not found' do
         post complete_todo_path('INVALID_ID')
 
-        expect(response).to have_http_status(:not_found)
-        expect(response).to render_template(:index)
+        expect(response).to redirect_to todos_path
         expect(assigns(:todos)).to match_array(Todo.all)
         expect(assigns(:todo)).to be_new_record
       end
