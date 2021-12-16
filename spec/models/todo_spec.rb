@@ -28,4 +28,14 @@ RSpec.describe Todo, type: :model do
       expect(todos).to contain_exactly(incomplete_todo)
     end
   end
+
+  describe '#completed?' do
+    let(:incomplete_todo) { create :todo, content: 'Foo' }
+    let(:completed_todo) { create :todo, content: 'Bar', completed_at: Time.zone.now }
+
+    it 'returns true if it is completed' do
+      expect(incomplete_todo).to_not be_completed
+      expect(completed_todo).to be_completed
+    end
+  end
 end
