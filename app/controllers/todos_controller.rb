@@ -40,7 +40,7 @@ class TodosController < ApplicationController
   end
 
   def load_todo_list
-    @todos = Todo.where(completed_at: nil).order(updated_at: :desc)
+    @todos = Todo.incomplete.order(updated_at: :desc)
   end
 
   def load_new_todo
