@@ -31,6 +31,8 @@ class TodosController < ApplicationController
   end
 
   def completed
+    @todo = Todo.new
+    @todos = Todo.completed
   end
 
   private

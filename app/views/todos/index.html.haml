@@ -8,6 +8,8 @@
     = f.submit
 
 = turbo_frame_tag 'todo-list' do
+  = link_to 'Completed Todos', completed_todos_path
+
   %ul
     - @todos.each do |todo|
       = turbo_frame_tag "todo-#{todo.id}" do
