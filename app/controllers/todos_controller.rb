@@ -19,7 +19,7 @@ class TodosController < ApplicationController
   end
 
   def complete
-    @todo.destroy
+    @todo.update(completed_at: Time.zone.now)
 
     respond_to do |format|
       format.html { redirect_to todos_path, notice: 'Completed' }

@@ -55,6 +55,12 @@ RSpec.describe 'Todos', type: :request do
       expect(response).to redirect_to todos_path
     end
 
+    it 'makes the todo completed' do
+      post complete_todo_path(todo)
+
+      expect(assigns(:todo)).to be_completed
+    end
+
     context 'When given id does not exist' do
       it 'renders index with not found' do
         post complete_todo_path('INVALID_ID')
