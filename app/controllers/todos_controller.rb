@@ -19,6 +19,8 @@ class TodosController < ApplicationController
   end
 
   def complete
+    return redirect_to todos_path if @todo.completed?
+
     @todo.update(completed_at: Time.zone.now)
 
     respond_to do |format|

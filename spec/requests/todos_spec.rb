@@ -68,5 +68,22 @@ RSpec.describe 'Todos', type: :request do
         expect(response).to redirect_to todos_path
       end
     end
+
+    context 'When given id is of completed todo' do
+      let!(:todo) { create :todo, content: 'Hello, Sealion', completed_at: Time.zone.now }
+
+      it 'redirects to todos list' do
+        post complete_todo_path(todo)
+
+        expect(response).to redirect_to todos_path
+      end
+      it 'does not change completed_at' do
+        expect {
+          travel_to(Time.zone.now.since(1.hour))
+          post complete_todo_path(todo)
+          travel_back
+        }.to_not change { todo.reload.completed_at }
+      end
+    end
   end
 end
