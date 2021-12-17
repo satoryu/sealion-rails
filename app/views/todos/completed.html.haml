@@ -8,6 +8,8 @@
     = f.submit
 
 = turbo_frame_tag 'todo-list' do
+  = link_to 'Incomplete Todos', todos_path
+
   %ul
     - @todos.each do |todo|
       %li= todo.content
