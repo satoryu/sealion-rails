@@ -79,9 +79,9 @@ RSpec.describe 'Todos', type: :request do
       end
       it 'does not change completed_at' do
         expect {
-          travel_to(Time.zone.now.since(1.hour))
-          post complete_todo_path(todo)
-          travel_back
+          travel 1.hour do
+            post complete_todo_path(todo)
+          end
         }.to_not change { todo.reload.completed_at }
       end
     end
