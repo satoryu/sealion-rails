@@ -19,7 +19,9 @@ class TodosController < ApplicationController
   end
 
   def complete
-    @todo.destroy
+    return redirect_to todos_path if @todo.completed?
+
+    @todo.update(completed_at: Time.zone.now)
 
     respond_to do |format|
       format.html { redirect_to todos_path, notice: 'Completed' }
@@ -30,6 +32,11 @@ class TodosController < ApplicationController
     end
   end
 
+  def completed
+    @todo = Todo.new
+    @todos = Todo.completed
+  end
+
   private
 
   def todo_params
@@ -37,7 +44,7 @@ class TodosController < ApplicationController
   end
 
   def load_todo_list
-    @todos = Todo.all.order(updated_at: :desc)
+    @todos = Todo.incomplete.order(updated_at: :desc)
   end
 
   def load_new_todo

@@ -1,16 +1,14 @@
 %h1 Todos
 
 = turbo_frame_tag 'todo-form', target: '_top' do
-  = form_for @todo do |f|
-    = f.label :content
-    = f.text_field :content
-
-    = f.submit
+  = render 'form', todo: @todo
 
 = turbo_frame_tag 'todo-list' do
+  = link_to 'Completed Todos', completed_todos_path
+
   %ul
     - @todos.each do |todo|
-      = turbo_frame_tag "todo-#{todo.id}" do
+      = turbo_frame_tag dom_id(todo) do
         %li
           = todo.content
           = link_to 'Complete', complete_todo_path(todo), data: { turbo_method: :post }
