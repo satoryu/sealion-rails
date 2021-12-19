@@ -1,11 +1,7 @@
 %h1 Completed Todos
 
 = turbo_frame_tag 'todo-form', target: '_top' do
-  = form_for @todo do |f|
-    = f.label :content
-    = f.text_field :content
-
-    = f.submit
+  = render 'form', todo: @todo
 
 = turbo_frame_tag 'todo-list' do
   = link_to 'Incomplete Todos', todos_path
