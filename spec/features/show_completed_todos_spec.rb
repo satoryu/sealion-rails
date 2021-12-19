@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.feature "ShowCompletedTodos", type: :feature do
   background do
     create :todo, content: 'Buy a Milk'
-    create :todo, content: 'Go to the Office', completed_at: Time.zone.now
+    create :todo, :completed, content: 'Go to the Office'
 
     visit '/todos/completed'
   end

@@ -70,7 +70,7 @@ RSpec.describe 'Todos', type: :request do
     end
 
     context 'When given id is of completed todo' do
-      let!(:todo) { create :todo, content: 'Hello, Sealion', completed_at: Time.zone.now }
+      let!(:todo) { create :todo, :completed, content: 'Hello, Sealion' }
 
       it 'redirects to todos list' do
         post complete_todo_path(todo)
