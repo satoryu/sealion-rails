@@ -12,7 +12,7 @@
 
   %ul
     - @todos.each do |todo|
-      = turbo_frame_tag "todo-#{todo.id}" do
+      = turbo_frame_tag dom_id(todo) do
         %li
           = todo.content
           = link_to 'Complete', complete_todo_path(todo), data: { turbo_method: :post }
