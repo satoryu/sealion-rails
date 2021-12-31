@@ -27,7 +27,7 @@ RSpec.feature "ShowCompletedTodos", type: :feature do
       end
     end
     scenario 'shows the form to register new Todo' do
-      within 'form' do
+      within 'form#todo' do
         expect(page).to have_field('Content')
       end
     end
