@@ -1,5 +1,7 @@
 %h1 Todos
 
+= button_to 'Sign in with GitHub', user_github_omniauth_authorize_path, data: { turbo: false }
+
 = turbo_frame_tag 'todo-form', target: '_top' do
   = render 'form', todo: @todo
 
